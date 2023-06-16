@@ -1,0 +1,40 @@
+{
+  "name": "vidly-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll --verbose --detectOpenHandles --coverage",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "18.6.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bson": "^5.3.0",
+    "compression": "^1.7.4",
+    "config": "^3.3.9",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^7.0.0",
+    "joi": "^17.9.2",
+    "joi-objectid": "^4.0.2",
+    "joi-password-complexity": "^5.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "mongoose": "^7.1.1",
+    "nodemon": "^2.0.21",
+    "winston": "^3.9.0",
+    "winston-mongodb": "^5.1.1"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "jest-extended": "^4.0.0",
+    "supertest": "^6.3.3"
+  }
+}
