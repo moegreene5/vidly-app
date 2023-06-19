@@ -6,7 +6,7 @@ const { Movie } = require("../models/movie");
 const validate = require("../middleware/validate");
 const Joi = require("joi");
 
-router.post("/", [auth, validate(validateReturn)], async (req, res) => {
+router.post("/", [auth, validate(validateReturns)], async (req, res) => {
   const rental = await Rental.lookUp(req.body.customerId, req.body.movieId);
 
   if (!rental) return res.status(404).send("Rental not found.");
@@ -29,7 +29,7 @@ router.post("/", [auth, validate(validateReturn)], async (req, res) => {
   res.send(rental);
 });
 
-function validateReturn(req) {
+function validateReturns(req) {
   const schema = Joi.object({
     customerId: Joi.objectId().required(),
     movieId: Joi.objectId().required(),

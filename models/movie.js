@@ -24,4 +24,4 @@ function validateMovies(movie) {
 }
 
 module.exports.Movie = Movie;
-module.exports.validate = validateMovies;
+module.exports.validateMovies = validateMovies;

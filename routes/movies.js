@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { Movie, validate } = require("../models/movie");
+const { Movie, validateMovies } = require("../models/movie");
 const { Genre } = require("../models/genre");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
+const validate = require("../middleware/validate");
 
 router.get("/", async (req, res) => {
   const movies = await Movie.find().sort("title");
@@ -20,10 +21,7 @@ router.get("/:id", async (req, res) => {
   res.send(movie);
 });
 
-router.post("/", [auth, admin], async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
+router.post("/", [auth, admin, validate(validateMovies)], async (req, res) => {
   let movie = await Movie.findOne({
     title: { $regex: req.body.title, $options: "i" },
   });
@@ -46,10 +44,7 @@ router.post("/", [auth, admin], async (req, res) => {
   res.send(movie);
 });
 
-router.put("/:id", async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
+router.put("/:id", validate(validateMovies), async (req, res) => {
   const genre = await Genre.findById({ _id: req.body.genre });
   if (!genre) return res.status(400).send("Invalid Genre");
 

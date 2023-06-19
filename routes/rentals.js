@@ -1,8 +1,9 @@
-const { Rental, validate } = require("../models/rental");
+const { Rental, validateRentals } = require("../models/rental");
 const { Customer } = require("../models/customer");
 const { Movie } = require("../models/movie");
 const express = require("express");
 const mongoose = require("mongoose");
+const validate = require("../middleware/validate");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -10,10 +11,7 @@ router.get("/", async (req, res) => {
   res.send(rentals);
 });
 
-router.post("/", async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
+router.post("/", validate(validateRentals), async (req, res) => {
   const customer = await Customer.findById({ _id: req.body.customerId });
   if (!customer) return res.status(400).send("Invalid Customer");
 

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Customer, validateCustomer } = require("../models/customer");
+const validate = require("../middleware/validate");
 
 router.get("/", async (req, res) => {
   const customers = await Customer.find().sort("name");
@@ -17,10 +18,7 @@ router.get("/:id", async (req, res) => {
   res.send(customer);
 });
 
-router.post("/", async (req, res) => {
-  const { error } = validateCustomer(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
+router.post("/", validate(validateCustomer), async (req, res) => {
   let customer = new Customer({
     name: req.body.name,
     isGold: req.body.isGold,
@@ -31,10 +29,7 @@ router.post("/", async (req, res) => {
   res.send(customer);
 });
 
-router.put("/:id", async (req, res) => {
-  const { error } = validateCustomer(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
-
+router.put("/:id", validate(validateCustomer), async (req, res) => {
   const customer = await Customer.findByIdAndUpdate(
     { _id: req.params.id },
     {
