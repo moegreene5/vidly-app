@@ -6,9 +6,11 @@ const rentals = require("../routes/rentals");
 const users = require("../routes/users");
 const auth = require("../routes/auth");
 const returns = require("../routes/returns");
+const cors = require("cors");
 const error = require("../middleware/error");
 
 module.exports = function (app) {
+  app.use(cors());
   app.use(express.json());
   app.use("/api/genres", genres);
   app.use("/api/customers", customers);
