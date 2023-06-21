@@ -2,7 +2,6 @@ const { Genre } = require("../../models/genre");
 const request = require("supertest");
 const { User } = require("../../models/user");
 const mongoose = require("mongoose");
-const { before } = require("lodash");
 let server;
 
 describe("/api/genres", () => {
