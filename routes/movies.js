@@ -29,7 +29,7 @@ router.post("/", [auth, admin, validate(validateMovies)], async (req, res) => {
   if (movie)
     return res.status(400).send("This movie already exists in the database");
 
-  const genre = await Genre.findById({ _id: req.body.genreid });
+  const genre = await Genre.findById({ _id: req.body.genre });
   if (!genre) return res.status(400).send("Invalid Genre");
 
   movie = new Movie({
