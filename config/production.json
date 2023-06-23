@@ -1,5 +1,4 @@
 {
     "jwtPrivateKey" : "",
-    "db":"",
-    "requiresAuth":"true"
+    "db":""
 }
