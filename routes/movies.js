@@ -22,7 +22,7 @@ router.get("/:id", validateObjectId, async (req, res) => {
   res.send(movie);
 });
 
-router.post("/", [validate(validateMovies)], async (req, res) => {
+router.post("/", [auth, validate(validateMovies)], async (req, res) => {
   let movie = await Movie.findOne({
     title: { $regex: req.body.title, $options: "i" },
   });
@@ -45,7 +45,7 @@ router.post("/", [validate(validateMovies)], async (req, res) => {
   res.send(movie);
 });
 
-router.put("/:id", validate(validateMovies), async (req, res) => {
+router.put("/:id", auth, validate(validateMovies), async (req, res) => {
   const genre = await Genre.findById({ _id: req.body.genre });
   if (!genre) return res.status(400).send("Invalid Genre");
 
@@ -71,7 +71,7 @@ router.put("/:id", validate(validateMovies), async (req, res) => {
   res.send(movie);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
   const movie = await Movie.findByIdAndRemove({ _id: req.params.id });
 
   if (!movie)
