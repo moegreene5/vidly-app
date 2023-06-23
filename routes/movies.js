@@ -22,7 +22,7 @@ router.get("/:id", validateObjectId, async (req, res) => {
   res.send(movie);
 });
 
-router.post("/", [auth, admin, validate(validateMovies)], async (req, res) => {
+router.post("/", [validate(validateMovies)], async (req, res) => {
   let movie = await Movie.findOne({
     title: { $regex: req.body.title, $options: "i" },
   });
