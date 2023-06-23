@@ -5,6 +5,7 @@ const { Genre } = require("../models/genre");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const validate = require("../middleware/validate");
+const validateObjectId = require("../middleware/validateObjectId");
 
 router.get("/", async (req, res) => {
   const movies = await Movie.find().sort("title");
@@ -12,7 +13,7 @@ router.get("/", async (req, res) => {
   res.send(movies);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", validateObjectId, async (req, res) => {
   const movie = await Movie.findById({ _id: req.params.id });
 
   if (!movie)
