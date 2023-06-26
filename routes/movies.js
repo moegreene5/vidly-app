@@ -71,7 +71,7 @@ router.put("/:id", auth, validate(validateMovies), async (req, res) => {
   res.send(movie);
 });
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", auth, admin, async (req, res) => {
   const movie = await Movie.findByIdAndRemove({ _id: req.params.id });
 
   if (!movie)
